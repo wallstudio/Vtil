@@ -76,6 +76,12 @@ public:
 		MessageBoxA(GetActiveWindow(), reinterpret_cast<char*>(pLic.ToPointer()), "Lic", MB_OK);
 		Marshal::FreeHGlobal(pLic);
 
+		//auto pcm = Vtil::Utillity::TTS("tamiyasu_44", "<S>(Irq MARK=_AI@6)^マ!キパ|0(Irq MARK=_AI@8)^イ<F>");
+		//auto wave = Vtil::Utillity::PcmToWave(pcm);
+		////System::IO::File::WriteAllBytes("voice.pcm", pcm);
+		//System::IO::File::WriteAllBytes("C:\\Users\\huser\\Desktop\\a.wav", wave);
+		//Vtil::Utillity::Play(pcm);
+
 		return m_Original->Invoke(guid, name, bufferLen, requireLen);
 	}
 };
