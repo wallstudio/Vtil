@@ -3,9 +3,87 @@
 
 namespace Vtil
 {
-	public ref class Class1
+	using namespace System;
+	using namespace System::Text;
+	using namespace AI::Talk::Core;
+	public ref class Hook sealed
 	{
-		// TODO: このクラスのメソッドをここに追加します。
+	public:
+		ref class Callbacks sealed
+		{
+		public:
+			delegate AIAudioResultCode AIAudioAPI_DeviceInfo(LPTSTR guid, LPTSTR name, INT32 bufferLen, INT32% requireLen);
+			delegate UInt32 AITalkAPI_ModuleFlag();
+			delegate AITalkResultCode AITalkAPI_LicenseInfo(LPTSTR key, LPTSTR str, INT32 len);
+			delegate AITalkResultCode AITalkAPI_LicenseDate(LPTSTR data);
+			delegate AIAudioResultCode AIAudioAPI_Open(AIAudio_TConfig% config);
+			delegate AIAudioResultCode AIAudioAPI_Close();
+			delegate AIAudioResultCode AIAudioAPI_PushData(UINT8* buf, UINT32 len, INT32 stop);
+			delegate AIAudioResultCode AIAudioAPI_PushEvent(UINT64 tick, void* userData);
+			delegate AIAudioResultCode AIAudioAPI_ClearData();
+			delegate AIAudioResultCode AIAudioAPI_Suspend();
+			delegate AIAudioResultCode AIAudioAPI_Resume();
+			delegate AIAudioResultCode AIAudioAPI_SaveWave(LPTSTR path, AIAudio_TWaveFormat% format, UINT8* buf, UINT32 len);
+			delegate AIAudioResultCode AIAudioAPI_GetDescriptor(INT32 target, byte* desc, UINT32 bufferLen, UINT32% requireLen);
+			delegate AITalkResultCode AITalkAPI_Init(AITalk_TConfig% config);
+			delegate AITalkResultCode AITalkAPI_End();
+			delegate AITalkResultCode AITalkAPI_VersionInfo(INT32 verbose, LPTSTR sjis, UINT32 bufferLen, UINT32% requireLen);
+			delegate AITalkResultCode AITalkAPI_GetStatus(INT32 jobID, AITalkStatusCode% status);
+			delegate AITalkResultCode AITalkAPI_SetParam(AITalk_TTtsParam% param);
+			delegate AITalkResultCode AITalkAPI_GetParam(AITalk_TTtsParam% param, UINT32% size);
+			delegate AITalkResultCode AITalkAPI_LangLoad(LPTSTR dirLang);
+			delegate AITalkResultCode AITalkAPI_LangClear();
+			delegate AITalkResultCode AITalkAPI_VoiceLoad(LPTSTR voiceName);
+			delegate AITalkResultCode AITalkAPI_VoiceClear();
+			delegate AITalkResultCode AITalkAPI_TextToSpeech(INT32% jobID, AITalk_TJobParam% param, LPTSTR text);
+			delegate AITalkResultCode AITalkAPI_CloseSpeech(INT32 jobID, INT32 useEvent);
+			delegate AITalkResultCode AITalkAPI_GetData(INT32 jobID, INT16* rawBuf, UINT32 bufferLen, UINT32% requireLen);
+			delegate AITalkResultCode AITalkAPI_TextToKana(INT32% jobID, AITalk_TJobParam% param, LPTSTR text);
+			delegate AITalkResultCode AITalkAPI_CloseKana(INT32 jobID, INT32 useEvent);
+			delegate AITalkResultCode AITalkAPI_GetKana(INT32 jobID, LPTSTR textBuf, UINT32 bufferLen, UINT32% requireLen, UINT32& pos);
+			delegate AITalkResultCode AITalkAPI_GetJeitaControl(INT32 jobID, LPTSTR control);
+			delegate AITalkResultCode AITalkAPI_BLoadWordDic();
+			delegate AITalkResultCode AITalkAPI_ReloadWordDic(LPTSTR path);
+			delegate AITalkResultCode AITalkAPI_ReloadPhraseDic(LPTSTR path);
+			delegate AITalkResultCode AITalkAPI_ReloadSymbolDic(LPTSTR path);
+		};
+		static Callbacks::AIAudioAPI_DeviceInfo^ AIAudioAPI_DeviceInfo;
+		static Callbacks::AITalkAPI_ModuleFlag^ AITalkAPI_ModuleFlag;
+		static Callbacks::AITalkAPI_LicenseInfo^ AITalkAPI_LicenseInfo;
+		static Callbacks::AITalkAPI_LicenseDate^ AITalkAPI_LicenseDate;
+		static Callbacks::AIAudioAPI_Open^ AIAudioAPI_Open;
+		static Callbacks::AIAudioAPI_Close^ AIAudioAPI_Close;
+		static Callbacks::AIAudioAPI_PushData^ AIAudioAPI_PushData;
+		static Callbacks::AIAudioAPI_PushEvent^ AIAudioAPI_PushEvent;
+		static Callbacks::AIAudioAPI_ClearData^ AIAudioAPI_ClearData;
+		static Callbacks::AIAudioAPI_Suspend^ AIAudioAPI_Suspend;
+		static Callbacks::AIAudioAPI_Resume^ AIAudioAPI_Resume;
+		static Callbacks::AIAudioAPI_SaveWave^ AIAudioAPI_SaveWave;
+		static Callbacks::AIAudioAPI_GetDescriptor^ AIAudioAPI_GetDescriptor;
+		static Callbacks::AITalkAPI_Init^ AITalkAPI_Init;
+		static Callbacks::AITalkAPI_End^ AITalkAPI_End;
+		static Callbacks::AITalkAPI_VersionInfo^ AITalkAPI_VersionInfo;
+		static Callbacks::AITalkAPI_GetStatus^ AITalkAPI_GetStatus;
+		static Callbacks::AITalkAPI_SetParam^ AITalkAPI_SetParam;
+		static Callbacks::AITalkAPI_GetParam^ AITalkAPI_GetParam;
+		static Callbacks::AITalkAPI_LangLoad^ AITalkAPI_LangLoad;
+		static Callbacks::AITalkAPI_LangClear^ AITalkAPI_LangClear;
+		static Callbacks::AITalkAPI_VoiceLoad^ AITalkAPI_VoiceLoad;
+		static Callbacks::AITalkAPI_VoiceClear^ AITalkAPI_VoiceClear;
+		static Callbacks::AITalkAPI_TextToSpeech^ AITalkAPI_TextToSpeech;
+		static Callbacks::AITalkAPI_CloseSpeech^ AITalkAPI_CloseSpeech;
+		static Callbacks::AITalkAPI_GetData^ AITalkAPI_GetData;
+		static Callbacks::AITalkAPI_TextToKana^ AITalkAPI_TextToKana;
+		static Callbacks::AITalkAPI_CloseKana^ AITalkAPI_CloseKana;
+		static Callbacks::AITalkAPI_GetKana^ AITalkAPI_GetKana;
+		static Callbacks::AITalkAPI_GetJeitaControl^ AITalkAPI_GetJeitaControl;
+		static Callbacks::AITalkAPI_BLoadWordDic^ AITalkAPI_BLoadWordDic;
+		static Callbacks::AITalkAPI_ReloadWordDic^ AITalkAPI_ReloadWordDic;
+		static Callbacks::AITalkAPI_ReloadPhraseDic^ AITalkAPI_ReloadPhraseDic;
+		static Callbacks::AITalkAPI_ReloadSymbolDic^ AITalkAPI_ReloadSymbolDic;
+
+	private:
+		static Hook();
 	};
 
 	#ifdef _EXPORTING

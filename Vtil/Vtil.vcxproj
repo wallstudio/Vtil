@@ -138,6 +138,11 @@
     <ClCompile Include="Vtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AI.Talk">
+      <HintPath>..\.VOICEROID2\AI.Talk.dll</HintPath>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
