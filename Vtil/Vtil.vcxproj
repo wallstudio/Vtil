@@ -86,8 +86,16 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"
+copy /Y "$(ProjectDir)VoiceroidEditor.exe.config" "$(SolutionDir).VOICEROID2\"
+mkdir "$(SolutionDir).VOICEROID2\Vtil"
+xcopy /E "$(ProjectDir)Data" "$(SolutionDir).VOICEROID2\Vtil"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(SolutionDir).VOICEROID2\Vtil" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\aitalked.dll" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\VoiceroidEditor.exe.config" || echo ""</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -100,8 +108,16 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"
+copy /Y "$(ProjectDir)VoiceroidEditor.exe.config" "$(SolutionDir).VOICEROID2\"
+mkdir "$(SolutionDir).VOICEROID2\Vtil"
+xcopy /E "$(ProjectDir)Data" "$(SolutionDir).VOICEROID2\Vtil"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(SolutionDir).VOICEROID2\Vtil" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\aitalked.dll" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\VoiceroidEditor.exe.config" || echo ""</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -114,8 +130,16 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"
+copy /Y "$(ProjectDir)VoiceroidEditor.exe.config" "$(SolutionDir).VOICEROID2\"
+mkdir "$(SolutionDir).VOICEROID2\Vtil"
+xcopy /E "$(ProjectDir)Data" "$(SolutionDir).VOICEROID2\Vtil"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(SolutionDir).VOICEROID2\Vtil" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\aitalked.dll" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\VoiceroidEditor.exe.config" || echo ""</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -128,27 +152,46 @@
       <AdditionalDependencies />
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"</Command>
+      <Command>copy /Y "$(TargetPath)" "$(SolutionDir).VOICEROID2\aitalked.dll"
+copy /Y "$(ProjectDir)VoiceroidEditor.exe.config" "$(SolutionDir).VOICEROID2\"
+mkdir "$(SolutionDir).VOICEROID2\Vtil"
+xcopy /E "$(ProjectDir)Data" "$(SolutionDir).VOICEROID2\Vtil"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>rmdir /S /Q "$(SolutionDir).VOICEROID2\Vtil" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\aitalked.dll" || echo ""
+del /Q "$(SolutionDir).VOICEROID2\VoiceroidEditor.exe.config" || echo ""</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Utillity.h" />
     <ClInclude Include="Vtil.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Utillity.cpp" />
     <ClCompile Include="Vtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AI.Talk">
       <HintPath>..\.VOICEROID2\AI.Talk.dll</HintPath>
-      <Private>true</Private>
+      <Private>false</Private>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Data\Libs\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Extensions">
+      <HintPath>Data\Libs\System.Windows.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="JMPtoAPI.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VoiceroidEditor.exe.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

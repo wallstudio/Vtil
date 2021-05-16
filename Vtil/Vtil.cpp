@@ -1,6 +1,8 @@
 #include <windows.h>
 #include <msclr\marshal.h>
 #include "Vtil.h"
+#include "Utillity.h"
+#pragma comment(lib, "User32.lib")
 
 
 
@@ -60,6 +62,24 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 }
 #pragma managed(pop)
 
+ref class Test
+{
+private:
+	Vtil::Hook::Callbacks::AIAudioAPI_DeviceInfo^ m_Original;
+public:
+	Test(Vtil::Hook::Callbacks::AIAudioAPI_DeviceInfo^ original) { m_Original = original; }
+	AI::Talk::Core::AIAudioResultCode Invoke(LPTSTR guid, LPTSTR name, INT32 bufferLen, INT32% requireLen)
+	{
+		using namespace System::Runtime::InteropServices;
+		auto lic = Vtil::Utillity::ReadLiscense("VoiceroidEditor.exe");
+		auto pLic = Marshal::StringToHGlobalAnsi(lic);
+		MessageBoxA(GetActiveWindow(), reinterpret_cast<char*>(pLic.ToPointer()), "Lic", MB_OK);
+		Marshal::FreeHGlobal(pLic);
+
+		return m_Original->Invoke(guid, name, bufferLen, requireLen);
+	}
+};
+
 static Vtil::Hook::Hook()
 {
 	using namespace System::Runtime::InteropServices;
@@ -98,6 +118,9 @@ static Vtil::Hook::Hook()
 	AITalkAPI_ReloadWordDic = Marshal::GetDelegateForFunctionPointer<Callbacks::AITalkAPI_ReloadWordDic^>(IntPtr(p[31]));
 	AITalkAPI_ReloadPhraseDic = Marshal::GetDelegateForFunctionPointer<Callbacks::AITalkAPI_ReloadPhraseDic^>(IntPtr(p[32]));
 	AITalkAPI_ReloadSymbolDic = Marshal::GetDelegateForFunctionPointer<Callbacks::AITalkAPI_ReloadSymbolDic^>(IntPtr(p[33]));
+
+	auto original = gcnew Test(AIAudioAPI_DeviceInfo);
+	AIAudioAPI_DeviceInfo = gcnew Callbacks::AIAudioAPI_DeviceInfo(original, &Test::Invoke);
 }
 
 namespace BridgeManaged
