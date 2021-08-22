@@ -103,6 +103,7 @@ del /Q "$(SolutionDir).VOICEROID2\VoiceroidEditor.exe.config" || echo ""</Comman
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_EXPORTING;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <AdditionalDependencies />

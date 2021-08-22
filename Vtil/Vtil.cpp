@@ -73,14 +73,15 @@ public:
 		using namespace System::Runtime::InteropServices;
 		auto lic = Vtil::Utillity::ReadLiscense("VoiceroidEditor.exe");
 		auto pLic = Marshal::StringToHGlobalAnsi(lic);
-		MessageBoxA(GetActiveWindow(), reinterpret_cast<char*>(pLic.ToPointer()), "Lic", MB_OK);
+		//MessageBoxA(GetActiveWindow(), reinterpret_cast<char*>(pLic.ToPointer()), "Lic", MB_OK);
 		Marshal::FreeHGlobal(pLic);
 
-		//auto pcm = Vtil::Utillity::TTS("tamiyasu_44", "<S>(Irq MARK=_AI@6)^マ!キパ|0(Irq MARK=_AI@8)^イ<F>");
-		//auto wave = Vtil::Utillity::PcmToWave(pcm);
-		////System::IO::File::WriteAllBytes("voice.pcm", pcm);
-		//System::IO::File::WriteAllBytes("C:\\Users\\huser\\Desktop\\a.wav", wave);
-		//Vtil::Utillity::Play(pcm);
+		auto pcm = Vtil::Utillity::TTS("tamiyasu_44", "<S>ア^フリカオーリツガ!クイン<N>");
+		System::IO::File::WriteAllBytes("C:\\Users\\huser\\Desktop\\a.pcm", pcm);
+		exit(0);
+		auto wave = Vtil::Utillity::PcmToWave(pcm);
+		System::IO::File::WriteAllBytes("C:\\Users\\huser\\Desktop\\a.wav", wave);
+		Vtil::Utillity::Play(pcm);
 
 		return m_Original->Invoke(guid, name, bufferLen, requireLen);
 	}
@@ -212,7 +213,9 @@ Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_VoiceClear() { ret
 Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_TextToSpeech(INT32& jobID, AITalk_TJobParam& param, LPTSTR text) { return BridgeManaged::AITalkAPI_TextToSpeech(jobID, param, text); }
 Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_CloseSpeech(INT32 jobID, INT32 useEvent) { return BridgeManaged::AITalkAPI_CloseSpeech(jobID, useEvent); }
 Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_GetData(INT32 jobID, INT16* rawBuf, UINT32 bufferLen, UINT32& requireLen) { return BridgeManaged::AITalkAPI_GetData(jobID, rawBuf, bufferLen, requireLen); }
-Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_TextToKana(INT32& jobID, AITalk_TJobParam& param, LPTSTR text) { return BridgeManaged::AITalkAPI_TextToKana(jobID, param, text); }
+Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_TextToKana(INT32& jobID, AITalk_TJobParam& param, LPTSTR text) {
+	auto a = BridgeManaged::AITalkAPI_TextToKana(jobID, param, text);
+	return BridgeManaged::AITalkAPI_TextToKana(jobID, param, text); }
 Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_CloseKana(INT32 jobID, INT32 useEvent) { return BridgeManaged::AITalkAPI_CloseKana(jobID, useEvent); }
 Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_GetKana(INT32 jobID, LPTSTR textBuf, UINT32 bufferLen, UINT32& requireLen, UINT32& pos) { return BridgeManaged::AITalkAPI_GetKana(jobID, textBuf, bufferLen, requireLen, pos); }
 Vtil::Native::AITalkResultCode WINAPI Vtil::Native::AITalkAPI_GetJeitaControl(INT32 jobID, LPTSTR control) { return BridgeManaged::AITalkAPI_GetJeitaControl(jobID, control); }
